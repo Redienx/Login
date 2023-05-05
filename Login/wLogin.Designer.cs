@@ -51,9 +51,9 @@
             this.lblIncio.Font = new System.Drawing.Font("Palatino Linotype", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIncio.Location = new System.Drawing.Point(89, 66);
             this.lblIncio.Name = "lblIncio";
-            this.lblIncio.Size = new System.Drawing.Size(213, 27);
+            this.lblIncio.Size = new System.Drawing.Size(196, 27);
             this.lblIncio.TabIndex = 0;
-            this.lblIncio.Text = "INICIO DE SECCIÓN";
+            this.lblIncio.Text = "INICIO DE SESIÓN";
             // 
             // lblUsuario
             // 
