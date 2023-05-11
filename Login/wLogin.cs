@@ -7,14 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Finisar.SQLite;
 
 namespace Login
 {
-    /// <summary>
-    /// Hecho por Sneider Velasquez Iglesias 
-    /// Este codigo es un login conectado a una base de datos
-    /// </summary>
     public partial class fmrLogin : Form
     {
 
@@ -26,6 +21,10 @@ namespace Login
 
         // Contador para llevar registro de intentos fallidos de login
         int contador;
+
+        // Bandera para verificar si se han registrado usuarios previamente
+        bool bandera = false;
+
         public fmrLogin()
         {
             InitializeComponent();
@@ -35,91 +34,55 @@ namespace Login
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             gbxRegistrar.Visible = true;
+            bandera = true;
         }
 
         // Método para registrar un nuevo usuario al hacer clic en el botón "Registrarse"
         private void btnRegistrarse_Click(object sender, EventArgs e)
         {
-            //Utilizamos estos tres objetos de SQLite
-            SQLiteConnection conexion_sqlite;
-            SQLiteCommand cmd_sqlite;
-
-            //Crear una nueva conexión de la base de datos
-            conexion_sqlite = new SQLiteConnection("Data Source=dbRegistros_de_Usuario2.db;Version=3;Compress=False;");
-
-            //Abriremos la conexión
-            conexion_sqlite.Open();
-
-            cmd_sqlite = conexion_sqlite.CreateCommand();
-
-            ////El objeto SQLiteCommando va a conocer la consulta de SQL
-            ///cmd_sqlite.CommandText = "CREATE TABLE tbl_Registros(ID integer primary key,Usuario varchar(100), Contraseña varchar(100));";
-
-            ////Ejecutaremos la consulta que hemos creado
-            ///cmd_sqlite.ExecuteNonQuery();
-
             UsuarioRegistro = txtUsuarioRegistrar.Text;
             ContrasenaRegistro = txtContrasenaRegistrar.Text;
-            //Insertando datos en la tabla
-            cmd_sqlite.CommandText = $"INSERT INTO tbl_Registros(Usuario, Contraseña) VALUES('{UsuarioRegistro}', '{ContrasenaRegistro}')";
-            cmd_sqlite.ExecuteNonQuery();
-
             gbxRegistrar.Visible = false;
-            conexion_sqlite.Close();
         }
 
         // Método para validar el usuario y contraseña al hacer clic en el botón "Iniciar"
         private void btnIniciar_Click(object sender, EventArgs e)
         {
-
-            //Utilizamos estos tres objetos de SQLite
-            SQLiteConnection conexion_sqlite;
-            SQLiteCommand cmd_sqlite;
-            SQLiteDataReader datareader_sqlite;
-
-            //Crear una nueva conexión de la base de datos
-            conexion_sqlite = new SQLiteConnection("Data Source=dbRegistros_de_Usuario2.db;Version=3;Compress=True;");
-
-            //Abriremos la conexión
-            conexion_sqlite.Open();
-
-            cmd_sqlite = conexion_sqlite.CreateCommand();
-
             Usuario = txtUsuario.Text;
             Contrasena = txtContrasena.Text;
 
-            cmd_sqlite.CommandText = $"SELECT Usuario, Contraseña FROM tbl_Registros WHERE Usuario = '{Usuario}' AND Contraseña = '{Contrasena}'";
-            datareader_sqlite = cmd_sqlite.ExecuteReader();
-
-            // Si el usuario y contraseña coinciden con los registrados, muestra el formulario de bienvenida
-            if (datareader_sqlite.Read())
+            // Si no hay usuarios registrados, muestra un mensaje de error
+            if (bandera == false)
             {
-                fmrBienvenido fmrBienvenido = new fmrBienvenido();
-                fmrBienvenido.Show();
-                contador = 0;
-                conexion_sqlite.Close();
+                MessageBox.Show("Sin registros previos");
             }
             else
             {
-                contador++;
-                // Si hay menos de 3 intentos fallidos, muestra un mensaje de error
-                if (contador < 3)
+                // Si el usuario y contraseña coinciden con los registrados, muestra el formulario de bienvenida
+                if (Usuario == UsuarioRegistro && Contrasena == ContrasenaRegistro)
                 {
-                    MessageBox.Show("Usuario o Contraseña incorrecto. Vuelva a intentar");
+                    fmrBienvenido fmrBienvenido = new fmrBienvenido();
+                    fmrBienvenido.Show();
+                    contador = 0;
                 }
-                // Si hay 3 o más intentos fallidos, muestra un mensaje de error y cierra el formulario de login
                 else
                 {
-                    MessageBox.Show("Muchos intentos erroneos. Bloqueado");
-                    this.Close();
-                    conexion_sqlite.Close();
+                    contador++;
+                    // Si hay menos de 3 intentos fallidos, muestra un mensaje de error
+                    if (contador < 3)
+                    {
+                        MessageBox.Show("Usuario o Contraseña incorrecto. Vuelva a intentar");
+                    }
+                    // Si hay 3 o más intentos fallidos, muestra un mensaje de error y cierra el formulario de login
+                    else
+                    {
+                        MessageBox.Show("Muchos intentos erroneos. Bloqueado");
+                        this.Close();
+                    }
                 }
             }
         }
-
-        private void fmrLogin_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
+// Codigo hecho por Sneider Velasquez Iglesias
+// 4 de abril de 2023
