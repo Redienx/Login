@@ -11,6 +11,10 @@ using Finisar.SQLite;
 
 namespace Login
 {
+    /// <summary>
+    /// Hecho por Sneider Velasquez Iglesias 
+    /// Este codigo es un login conectado a una base de datos
+    /// </summary>
     public partial class fmrLogin : Form
     {
 
@@ -22,10 +26,6 @@ namespace Login
 
         // Contador para llevar registro de intentos fallidos de login
         int contador;
-
-        // Bandera para verificar si se han registrado usuarios previamente
-        bool bandera = false;
-
         public fmrLogin()
         {
             InitializeComponent();
@@ -35,13 +35,11 @@ namespace Login
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             gbxRegistrar.Visible = true;
-            bandera = true;
         }
 
         // Método para registrar un nuevo usuario al hacer clic en el botón "Registrarse"
         private void btnRegistrarse_Click(object sender, EventArgs e)
         {
-
             //Utilizamos estos tres objetos de SQLite
             SQLiteConnection conexion_sqlite;
             SQLiteCommand cmd_sqlite;
@@ -68,8 +66,6 @@ namespace Login
 
             gbxRegistrar.Visible = false;
             conexion_sqlite.Close();
-            
-
         }
 
         // Método para validar el usuario y contraseña al hacer clic en el botón "Iniciar"
@@ -116,6 +112,7 @@ namespace Login
                 {
                     MessageBox.Show("Muchos intentos erroneos. Bloqueado");
                     this.Close();
+                    conexion_sqlite.Close();
                 }
             }
         }
@@ -126,5 +123,3 @@ namespace Login
         }
     }
 }
-// Codigo hecho por Sneider Velasquez Iglesias
-// 4 de abril de 2023
