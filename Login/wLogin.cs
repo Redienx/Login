@@ -45,11 +45,17 @@ namespace Login
             SQLiteCommand cmd_sqlite;
 
             //Crear una nueva conexión de la base de datos
-            conexion_sqlite = new SQLiteConnection("Data Source=dbRegistros_de_Usuario.db;Version=3;Compress=False;");
+            conexion_sqlite = new SQLiteConnection("Data Source=dbRegistros_de_Usuario2.db;Version=3;Compress=False;");
 
-            //Abriremos la conexión
-            conexion_sqlite.Open();
-
+            try
+            {
+                //Abriremos la conexión
+                conexion_sqlite.Open();
+            }
+            catch (Exception ex)
+            { 
+                MessageBox.Show("La base de datos no se encuentra en la ruta");
+            }
             cmd_sqlite = conexion_sqlite.CreateCommand();
 
             ////El objeto SQLiteCommando va a conocer la consulta de SQL
@@ -60,11 +66,15 @@ namespace Login
 
             UsuarioRegistro = txtUsuarioRegistrar.Text;
             ContrasenaRegistro = txtContrasenaRegistrar.Text;
-
-            //Insertando datos en la tabla
-            cmd_sqlite.CommandText = $"INSERT INTO tbl_Registros(Usuario, Contraseña) VALUES('{UsuarioRegistro}', '{ContrasenaRegistro}')";
-            cmd_sqlite.ExecuteNonQuery();
-
+            try
+            {
+                //Insertando datos en la tabla
+                cmd_sqlite.CommandText = $"INSERT INTO tbl_Registros(Usuario, Contraseña) VALUES('{UsuarioRegistro}', '{ContrasenaRegistro}')";
+                cmd_sqlite.ExecuteNonQuery();
+            }catch (Exception ex) 
+            {
+                MessageBox.Show("Usuario Existente.");
+            }
             gbxRegistrar.Visible = false;
             conexion_sqlite.Close();
         }
@@ -79,7 +89,7 @@ namespace Login
             SQLiteDataReader datareader_sqlite;
 
             //Crear una nueva conexión de la base de datos
-            conexion_sqlite = new SQLiteConnection("Data Source=dbRegistros_de_Usuario.db;Version=3;Compress=True;");
+            conexion_sqlite = new SQLiteConnection("Data Source=dbRegistros_de_Usuario2.db;Version=3;Compress=True;");
             try
             {
                 //Abriremos la conexión
@@ -99,6 +109,8 @@ namespace Login
                 fmrBienvenido fmrBienvenido = new fmrBienvenido();
                 fmrBienvenido.Show();
                 contador = 0;
+                txtUsuario.Text = null;
+                txtContrasena.Text = null;
                 conexion_sqlite.Close();
             }
             else
