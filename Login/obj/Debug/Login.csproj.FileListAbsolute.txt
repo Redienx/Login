@@ -1,0 +1,13 @@
+C:\Programacion\Ejercicios C#\Login\Login\bin\Debug\Login.exe.config
+C:\Programacion\Ejercicios C#\Login\Login\bin\Debug\Login.exe
+C:\Programacion\Ejercicios C#\Login\Login\bin\Debug\Login.pdb
+C:\Programacion\Ejercicios C#\Login\Login\obj\Debug\Login.csproj.AssemblyReference.cache
+C:\Programacion\Ejercicios C#\Login\Login\obj\Debug\Login.csproj.SuggestedBindingRedirects.cache
+C:\Programacion\Ejercicios C#\Login\Login\obj\Debug\Login.fmrBienvenido.resources
+C:\Programacion\Ejercicios C#\Login\Login\obj\Debug\Login.fmrLogin.resources
+C:\Programacion\Ejercicios C#\Login\Login\obj\Debug\Login.Properties.Resources.resources
+C:\Programacion\Ejercicios C#\Login\Login\obj\Debug\Login.csproj.GenerateResource.cache
+C:\Programacion\Ejercicios C#\Login\Login\obj\Debug\Login.csproj.CoreCompileInputs.cache
+C:\Programacion\Ejercicios C#\Login\Login\obj\Debug\Login.exe
+C:\Programacion\Ejercicios C#\Login\Login\obj\Debug\Login.pdb
+C:\Programacion\Ejercicios C#\Login\Login\obj\Debug\Login.csproj.CopyComplete
