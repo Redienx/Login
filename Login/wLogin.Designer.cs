@@ -75,6 +75,7 @@
             // 
             this.txtContrasena.Location = new System.Drawing.Point(131, 212);
             this.txtContrasena.Name = "txtContrasena";
+            this.txtContrasena.PasswordChar = '*';
             this.txtContrasena.Size = new System.Drawing.Size(171, 22);
             this.txtContrasena.TabIndex = 4;
             // 
@@ -189,7 +190,6 @@
             this.Controls.Add(this.lblIncio);
             this.Name = "fmrLogin";
             this.Text = "Login";
-            this.Load += new System.EventHandler(this.fmrLogin_Load);
             this.gbxRegistrar.ResumeLayout(false);
             this.gbxRegistrar.PerformLayout();
             this.ResumeLayout(false);

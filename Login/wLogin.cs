@@ -45,7 +45,7 @@ namespace Login
             SQLiteCommand cmd_sqlite;
 
             //Crear una nueva conexión de la base de datos
-            conexion_sqlite = new SQLiteConnection("Data Source=dbRegistros_de_Usuario2.db;Version=3;Compress=False;");
+            conexion_sqlite = new SQLiteConnection("Data Source=dbRegistros_de_Usuario.db;Version=3;Compress=False;");
 
             //Abriremos la conexión
             conexion_sqlite.Open();
@@ -60,6 +60,7 @@ namespace Login
 
             UsuarioRegistro = txtUsuarioRegistrar.Text;
             ContrasenaRegistro = txtContrasenaRegistrar.Text;
+
             //Insertando datos en la tabla
             cmd_sqlite.CommandText = $"INSERT INTO tbl_Registros(Usuario, Contraseña) VALUES('{UsuarioRegistro}', '{ContrasenaRegistro}')";
             cmd_sqlite.ExecuteNonQuery();
@@ -78,11 +79,12 @@ namespace Login
             SQLiteDataReader datareader_sqlite;
 
             //Crear una nueva conexión de la base de datos
-            conexion_sqlite = new SQLiteConnection("Data Source=dbRegistros_de_Usuario2.db;Version=3;Compress=True;");
-
-            //Abriremos la conexión
-            conexion_sqlite.Open();
-
+            conexion_sqlite = new SQLiteConnection("Data Source=dbRegistros_de_Usuario.db;Version=3;Compress=True;");
+            try
+            {
+                //Abriremos la conexión
+                conexion_sqlite.Open();
+            }catch (Exception ex) { MessageBox.Show("La base da datos no se encuentra en la ruta."); }
             cmd_sqlite = conexion_sqlite.CreateCommand();
 
             Usuario = txtUsuario.Text;
@@ -111,15 +113,10 @@ namespace Login
                 else
                 {
                     MessageBox.Show("Muchos intentos erroneos. Bloqueado");
-                    this.Close();
                     conexion_sqlite.Close();
+                    this.Close();
                 }
             }
-        }
-
-        private void fmrLogin_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
